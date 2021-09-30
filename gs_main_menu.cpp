@@ -218,15 +218,15 @@ void gs_main_menu::update(StringHash eventType,VariantMap& eventData)
     // camera movement
     Input* input=GetSubsystem<Input>();
     Node* cameraNode_=globals::instance()->camera->GetNode();
-    if(input->GetQualifierDown(1))  // 1 is shift, 2 is ctrl, 4 is alt
+    if(input->GetQualifierDown(Qualifier(1)))  // 1 is shift, 2 is ctrl, 4 is alt
         MOVE_SPEED*=10;
-    if(input->GetKeyDown('W'))
+    if(input->GetKeyDown(Key('W')))
         cameraNode_->Translate(Vector3(0,0, 1)*MOVE_SPEED*timeStep);
-    if(input->GetKeyDown('S'))
+    if(input->GetKeyDown(Key('S')))
         cameraNode_->Translate(Vector3(0,0,-1)*MOVE_SPEED*timeStep);
-    if(input->GetKeyDown('A'))
+    if(input->GetKeyDown(Key('A')))
         cameraNode_->Translate(Vector3(-1,0,0)*MOVE_SPEED*timeStep);
-    if(input->GetKeyDown('D'))
+    if(input->GetKeyDown(Key('D')))
         cameraNode_->Translate(Vector3( 1,0,0)*MOVE_SPEED*timeStep);
 
     if(!GetSubsystem<Input>()->IsMouseVisible())
@@ -271,7 +271,7 @@ void gs_main_menu::HandleKeyDown(StringHash eventType,VariantMap& eventData)
 {
     using namespace KeyDown;
     int key=eventData[P_KEY].GetInt();
-    if(key==KEY_ESC)
+    if(key==KEY_ESCAPE)
         globals::instance()->engine->Exit();
     else if(key==KEY_G)
         window_menu->SetVisible(!window_menu->IsVisible());

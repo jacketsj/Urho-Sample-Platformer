@@ -168,13 +168,13 @@ void player::update(Input* input,float timeStep)
         Vector3 moveDir=Vector3::ZERO;
         Vector3 moveDir_global=Vector3::ZERO;
 
-        if(input->GetKeyDown('D'))
+        if(input->GetKeyDown(Key('D')))
             moveDir+=Vector3::RIGHT*1;
-        if(input->GetKeyDown('A'))
+        if(input->GetKeyDown(Key('A')))
             moveDir-=Vector3::RIGHT*1;
-        if(input->GetKeyDown('W'))
+        if(input->GetKeyDown(Key('W')))
             moveDir+=Vector3::FORWARD*1;
-        if(input->GetKeyDown('S'))
+        if(input->GetKeyDown(Key('S')))
             moveDir-=Vector3::FORWARD*1;
 
         if(moveDir.Length()>0.1)
@@ -219,7 +219,7 @@ void player::update(Input* input,float timeStep)
             //player_stand->SetWeight(1.0-Clamp(vel.Length()/2,0.0,1.0));
             as_stand->SetWeight(1.0);
             //player_walk->SetWeight(Clamp(vel.Length()/2,0.0,1.0));
-            as_run->SetWeight(Clamp((vel.Length()-2)/2,0.0,1.0));   // maybe this should be done differently, but works for this game
+            as_run->SetWeight(Clamp(double(vel.Length()-2)/2,0.0,1.0));   // maybe this should be done differently, but works for this game
             if(!on_floor)
                 as_jump->SetWeight(as_jump->GetWeight()+timeStep*5);
             else
@@ -382,11 +382,11 @@ text_->SetText(s);
     if(camera_yaw>=360)
         camera_yaw-=360;
     camera_pitch+=mouseMove.y_*0.1;
-    camera_pitch=Clamp(camera_pitch,-85.0,85.0);
+    camera_pitch=Clamp(double(camera_pitch),-85.0,85.0);
     if(!camera_first_person)
     {
         camera_distance-=input->GetMouseMoveWheel();
-        camera_distance=Clamp(camera_distance,2.0,50.0);
+        camera_distance=Clamp(double(camera_distance),2.0,50.0);
 
         node_camera->SetPosition(node->GetPosition());
         node_camera->SetDirection(Vector3::FORWARD);

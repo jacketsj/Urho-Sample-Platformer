@@ -335,8 +335,9 @@ void gs_playing::update(StringHash eventType,VariantMap& eventData)
             float s=1.0+Random(3.0f);
             node_stone->SetScale(s);
             boxObject->SetOccludee(true);
-            boxObject->SetDrawDistance(200);
-            boxObject->SetShadowDistance(200);
+            // TODO: Figure out why draw distance isn't working
+            boxObject->SetDrawDistance(20000000);
+            boxObject->SetShadowDistance(20000000);
 
             PhysicsRaycastResult result;
             Vector3 pos;
@@ -454,7 +455,7 @@ void gs_playing::HandleKeyDown(StringHash eventType,VariantMap& eventData)
         return;
     using namespace KeyDown;
     int key=eventData[P_KEY].GetInt();
-    if(key==KEY_ESC)
+    if(key==KEY_ESCAPE)
         globals::instance()->game_states.emplace_back(new gs_pause);
 
     if(key==KEY_L)
@@ -479,8 +480,8 @@ void gs_playing::spawn_torch(Vector3 pos)
     set_model(boxObject,globals::instance()->cache,"Data/Models/torch");
     boxObject->SetCastShadows(true);
     boxObject->SetOccludee(true);
-    boxObject->SetShadowDistance(200);
-    boxObject->SetDrawDistance(200);
+    boxObject->SetShadowDistance(20000);
+    boxObject->SetDrawDistance(20000);
 
     auto lightNode=node->CreateChild();
     lightNode->Translate(Vector3(0,2,0));
@@ -490,8 +491,8 @@ void gs_playing::spawn_torch(Vector3 pos)
     light->SetBrightness(1.5);
     light->SetColor(Color(2.0,1.2,.8,1.0));
     light->SetCastShadows(true);
-    light->SetShadowDistance(300);
-    light->SetDrawDistance(300);
+    light->SetShadowDistance(30000);
+    light->SetDrawDistance(30000);
 
     auto body_stone=node->CreateComponent<RigidBody>();
     body_stone->SetCollisionLayer(2);
